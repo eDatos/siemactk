@@ -1,6 +1,8 @@
 import re
 import sys
+from pathlib import Path
 
+import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
@@ -36,6 +38,18 @@ def get_datasets_urls(target_url):
     return datasets_urls
 
 
+def download_dataset(datasets_url, target_folder='data'):
+    target_folder = Path(target_folder)
+    target_folder.mkdir(parents=True, exist_ok=True)
+    r = requests.get(dataset_url)
+    filename = re.search(r'filename="(.*)"', r.headers['Content-Disposition']).group(1)
+    f = target_folder / filename
+    f.write_bytes(r.content)
+
+
 if __name__ == '__main__':
     target_url = sys.argv[1]
-    print(get_datasets_urls(target_url))
+    datasets_urls = get_datasets_urls(target_url)
+    for dataset_url in datasets_urls:
+        print(f'Downlading {dataset_url}...')
+        download_dataset(dataset_url)
