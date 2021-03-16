@@ -27,15 +27,11 @@ def get_datasets_urls(target_url):
     )
 
     items = element.find_elements_by_class_name('tipRow')
-
-    datasets_urls = []
     for item in items:
         item_id = item.get_attribute('id')
         dataset_code = re.match(r'tipRow_[\d-]+_(.*)', item_id).group(1)
         dataset_table_url = BASE_DATASET_URL.format(dataset_code=dataset_code)
-        datasets_urls.append(dataset_table_url)
-
-    return datasets_urls
+        yield dataset_table_url
 
 
 def download_dataset(datasets_url, target_folder='data'):
@@ -49,7 +45,6 @@ def download_dataset(datasets_url, target_folder='data'):
 
 if __name__ == '__main__':
     target_url = sys.argv[1]
-    datasets_urls = get_datasets_urls(target_url)
-    for dataset_url in datasets_urls:
+    for dataset_url in get_datasets_urls(target_url):
         print(f'Downlading {dataset_url}...')
         download_dataset(dataset_url)
