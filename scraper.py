@@ -1,3 +1,4 @@
+import gzip
 import re
 import sys
 from pathlib import Path
@@ -38,9 +39,11 @@ def download_dataset(datasets_url, target_folder='data'):
     target_folder = Path(target_folder)
     target_folder.mkdir(parents=True, exist_ok=True)
     r = requests.get(dataset_url)
-    filename = re.search(r'filename="(.*)"', r.headers['Content-Disposition']).group(1)
-    f = target_folder / filename
-    f.write_bytes(r.content)
+    filename = re.search(r'filename="(.*).tsv.gz"', r.headers['Content-Disposition']).group(
+        1
+    )
+    f = target_folder / (filename + '.tsv')
+    f.write_bytes(gzip.decompress(r.content))
 
 
 if __name__ == '__main__':
