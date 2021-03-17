@@ -1,6 +1,6 @@
 # siemactk
 
-<img style="width: 300px" src="https://sie-mac.org/wp-content/uploads/2020/02/sector1.png">
+<img width="400" alt="SIE-MAC Logo" src="https://sie-mac.org/wp-content/uploads/2020/02/sector1.png">
 
 Toolkit to support operations on [sie-mac.org](https://sie-mac.org)
 
