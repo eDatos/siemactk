@@ -3,6 +3,7 @@ import re
 import sys
 from pathlib import Path
 
+import pandas as pd
 import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -35,7 +36,7 @@ def get_datasets_urls(target_url):
         yield dataset_table_url
 
 
-def download_dataset(datasets_url, target_folder='data'):
+def download_dataset(dataset_url, target_folder='data'):
     target_folder = Path(target_folder)
     target_folder.mkdir(parents=True, exist_ok=True)
     r = requests.get(dataset_url)
@@ -44,10 +45,22 @@ def download_dataset(datasets_url, target_folder='data'):
     )
     f = target_folder / (filename + '.tsv')
     f.write_bytes(gzip.decompress(r.content))
+    return f
+
+
+def filter_dataset(dataset: Path, geocodes: list = ['ES70', 'PT20', 'PT30']):
+    '''Filter dataset taking into account only records with geocodes'''
+    df = pd.read_csv(dataset, sep='\t', index_col=0)
+    df = df[df.index.str.contains('|'.join(geocodes), regex=True)]
+    df.columns = df.columns.str.strip()
+    df = df.apply(lambda series: series.str.strip())
+    df.to_csv(dataset, sep='\t')
 
 
 if __name__ == '__main__':
     target_url = sys.argv[1]
     for dataset_url in get_datasets_urls(target_url):
         print(f'Downlading {dataset_url}...')
-        download_dataset(dataset_url)
+        dataset = download_dataset(dataset_url)
+        print(f'Filtering {dataset}...')
+        filter_dataset(dataset)
