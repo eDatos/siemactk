@@ -1,6 +1,5 @@
 import gzip
 import re
-import sys
 from pathlib import Path
 
 import pandas as pd
@@ -55,12 +54,3 @@ def filter_dataset(dataset: Path, geocodes: list = ['ES70', 'PT20', 'PT30']):
     df.columns = df.columns.str.strip()
     df = df.apply(lambda series: series.str.strip())
     df.to_csv(dataset, sep='\t')
-
-
-if __name__ == '__main__':
-    target_url = sys.argv[1]
-    for dataset_url in get_datasets_urls(target_url):
-        print(f'Downlading {dataset_url}...')
-        dataset = download_dataset(dataset_url)
-        print(f'Filtering {dataset}...')
-        filter_dataset(dataset)
