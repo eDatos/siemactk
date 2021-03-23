@@ -24,10 +24,22 @@ def _clean_dataset(df):
     return pd.concat([id_df, df], axis=1, verify_integrity=True)
 
 
-def stage_dataset(dataset: Path, geocodes: list = settings.TARGET_GEOCODES):
+def _recode_dataset(df, codelist: Path, language: str):
+    cl = pd.read_csv(codelist)
+    mapping = cl.pivot(index='code', columns='cl', values=language).to_dict()
+    return df.replace(mapping)
+
+
+def stage_dataset(
+    dataset: Path,
+    language: str,
+    geocodes: list = settings.TARGET_GEOCODES,
+    codelist: Path = Path(settings.CODELIST),
+):
     '''Filter & clean dataset taking into account only records with geocodes'''
 
     df = pd.read_csv(dataset, sep='\t')
     df = _filter_dataset(df, geocodes)
     df = _clean_dataset(df)
+    df = _recode_dataset(df, codelist, language)
     df.to_csv(dataset, index=False, sep='\t')

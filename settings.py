@@ -13,3 +13,5 @@ BASE_DATASET_URL = config(
 TARGET_GEOCODES = config(
     'TARGET_GEOCODES', default='ES70,PT20,PT30,EU27_2020', cast=config.list
 )
+CODELIST = config('CODELIST', default='codelist.csv')
+RECODING_LANGUAGES = config('RECODING_LANGUAGES', default='ES,PT', cast=config.list)
