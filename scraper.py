@@ -47,10 +47,22 @@ def download_dataset(dataset_url, target_folder='data'):
     return f
 
 
-def filter_dataset(dataset: Path, geocodes: list = settings.TARGET_GEOCODES):
-    '''Filter dataset taking into account only records with geocodes'''
-    df = pd.read_csv(dataset, sep='\t', index_col=0)
-    df = df[df.index.str.contains('|'.join(geocodes), regex=True)]
-    df.columns = df.columns.str.strip()
+def clean_dataset(dataset: Path, geocodes: list = settings.TARGET_GEOCODES):
+    '''Filter & clean dataset taking into account only records with geocodes'''
+
+    def clean_values(series):
+        series = series.str.replace(r'[ a-zA-Z:]+$', '', regex=True)
+        series = series.replace('.', ',')
+        return series
+
+    df = pd.read_csv(dataset, sep='\t')
+    df = df[df.iloc[:, 0].str.contains('|'.join(geocodes), regex=True)]
     df = df.apply(lambda series: series.str.strip())
-    df.to_csv(dataset, sep='\t')
+    id_columns = [c.rstrip('\\time').title() for c in df.columns[0].split(',')]
+    id_df = df.iloc[:, 0].str.split(',', expand=True)
+    id_df.columns = id_columns
+    df = df.drop(df.columns[0], axis=1)
+    df = df.apply(clean_values)
+    df = pd.concat([id_df, df], axis=1, verify_integrity=True)
+
+    df.to_csv(dataset, index=False, sep='\t')
