@@ -6,7 +6,8 @@ import settings
 
 
 def _filter_dataset(df, geocodes):
-    return df[df.iloc[:, 0].str.contains('|'.join(geocodes), regex=True)]
+    gc_pattern = ',(?:' + '|'.join(geocodes) + ') *$'
+    return df[df.iloc[:, 0].str.contains(gc_pattern, regex=True)]
 
 
 def _clean_dataset(df):
