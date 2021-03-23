@@ -16,7 +16,7 @@ def _clean_dataset(df):
         return series
 
     df = df.apply(lambda series: series.str.strip())
-    id_columns = [c.rstrip('\\time').title() for c in df.columns[0].split(',')]
+    id_columns = [c.replace('\\time', '') for c in df.columns[0].split(',')]
     id_df = df.iloc[:, 0].str.split(',', expand=True)
     id_df.columns = id_columns
     df = df.drop(df.columns[0], axis=1)
