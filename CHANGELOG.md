@@ -2,6 +2,11 @@
 
 Versions follow [Semantic Versioning](https://semver.org/) (`<major>.<minor>.<patch>`).
 
+## istacpy 0.1.2 (2021-03-23)
+
+- Add main entrypoint.
+- Add external settings file.
+
 ## istacpy 0.1.1 (2021-03-17)
 
 - Fix logo on frontpage.
