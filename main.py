@@ -1,9 +1,7 @@
-import sys
-
 import scraper
+import settings
 
-target_url = sys.argv[1]
-for dataset_url in scraper.get_datasets_urls(target_url):
+for dataset_url in scraper.get_datasets_urls(settings.TARGET_URL):
     print(f'Downlading {dataset_url}...')
     dataset = scraper.download_dataset(dataset_url)
     print(f'Filtering {dataset}...')

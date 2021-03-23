@@ -1,4 +1,5 @@
 import gzip
+import os
 import re
 from pathlib import Path
 
@@ -10,10 +11,7 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-BASE_DATASET_URL = (
-    'https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/'
-    'BulkDownloadListing?file=data/{dataset_code}.tsv.gz'
-)
+import settings
 
 
 def get_datasets_urls(target_url):
@@ -31,7 +29,9 @@ def get_datasets_urls(target_url):
     for item in items:
         item_id = item.get_attribute('id')
         dataset_code = re.match(r'tipRow_[\d-]+_(.*)', item_id).group(1)
-        dataset_table_url = BASE_DATASET_URL.format(dataset_code=dataset_code)
+        dataset_table_url = os.path.join(
+            settings.BASE_DATASET_URL, dataset_code + '.tsv.gz'
+        )
         yield dataset_table_url
 
 
@@ -47,7 +47,7 @@ def download_dataset(dataset_url, target_folder='data'):
     return f
 
 
-def filter_dataset(dataset: Path, geocodes: list = ['ES70', 'PT20', 'PT30']):
+def filter_dataset(dataset: Path, geocodes: list = settings.TARGET_GEOCODES):
     '''Filter dataset taking into account only records with geocodes'''
     df = pd.read_csv(dataset, sep='\t', index_col=0)
     df = df[df.index.str.contains('|'.join(geocodes), regex=True)]
