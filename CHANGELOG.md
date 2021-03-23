@@ -2,6 +2,12 @@
 
 Versions follow [Semantic Versioning](https://semver.org/) (`<major>.<minor>.<patch>`).
 
+## istacpy 0.2.0 (2021-03-23)
+
+- Add dataset cleaning.
+- Add dataset recoding.
+- Bug fixes and other minor improvements.
+
 ## istacpy 0.1.2 (2021-03-23)
 
 - Add main entrypoint.
