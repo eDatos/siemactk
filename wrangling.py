@@ -33,14 +33,20 @@ def _recode_dataset(df, codelist: Path, language: str):
 
 def stage_dataset(
     dataset: Path,
-    language: str,
     geocodes: list = settings.TARGET_GEOCODES,
     codelist: Path = Path(settings.CODELIST),
+    languages: list = settings.RECODING_LANGUAGES,
 ):
     '''Filter & clean dataset taking into account only records with geocodes'''
 
     df = pd.read_csv(dataset, sep='\t')
     df = _filter_dataset(df, geocodes)
     df = _clean_dataset(df)
-    df = _recode_dataset(df, codelist, language)
-    df.to_csv(dataset, index=False, sep='\t')
+
+    for lang in languages:
+        recoded_df = _recode_dataset(df, codelist, lang)
+        output_stem = f'{dataset.stem}_{lang.lower()}'
+        output_dataset = dataset.with_stem(output_stem)
+        recoded_df.to_csv(output_dataset, index=False, sep='\t')
+
+    dataset.unlink()

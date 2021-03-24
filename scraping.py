@@ -34,7 +34,7 @@ def get_datasets_urls(target_url):
         yield dataset_table_url
 
 
-def download_dataset(dataset_url, target_folder='data'):
+def download_dataset(dataset_url, target_folder=settings.DATASETS_DIR):
     target_folder = Path(target_folder)
     target_folder.mkdir(parents=True, exist_ok=True)
     r = requests.get(dataset_url)

@@ -10,6 +10,7 @@ BASE_DATASET_URL = config(
     default='https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/'
     'BulkDownloadListing?file=data/',
 )
+DATASETS_DIR = config('DATASETS_DIR', default='data')
 TARGET_GEOCODES = config(
     'TARGET_GEOCODES', default='ES70,PT20,PT30,EU27_2020', cast=config.list
 )
