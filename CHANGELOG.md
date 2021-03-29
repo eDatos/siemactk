@@ -2,6 +2,10 @@
 
 Versions follow [Semantic Versioning](https://semver.org/) (`<major>.<minor>.<patch>`).
 
+## siemactk 0.3.1 (2021-03-29)
+
+- Fix project name on Changelog.
+
 ## siemactk 0.3.0 (2021-03-29)
 
 - Add feature to download codelist directly from Google Drive.
