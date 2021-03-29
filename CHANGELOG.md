@@ -2,6 +2,11 @@
 
 Versions follow [Semantic Versioning](https://semver.org/) (`<major>.<minor>.<patch>`).
 
+## istacpy 0.3.0 (2021-03-29)
+
+- Add feature to download codelist directly from Google Drive.
+- Add feature to upload output files to Google Drive.
+
 ## istacpy 0.2.1 (2021-03-24)
 
 - Add creation of output files recoded with lang settings.
