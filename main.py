@@ -3,6 +3,9 @@ import settings
 import storage
 import wrangling
 
+print('Downloading codelist...')
+storage.download_codelist(settings.CODELIST_FILENAME)
+
 for dataset_url in scraping.get_datasets_urls(settings.TARGET_URL):
     print(f'Downloading {dataset_url}...')
     dataset = scraping.download_dataset(dataset_url)

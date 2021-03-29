@@ -34,7 +34,7 @@ def _recode_dataset(df, codelist: Path, language: str):
 def stage_dataset(
     dataset: Path,
     geocodes: list = settings.TARGET_GEOCODES,
-    codelist: Path = Path(settings.CODELIST),
+    codelist: Path = Path(settings.CODELIST_FILENAME),
     languages: list = settings.RECODING_LANGUAGES,
 ):
     '''Filter & clean dataset taking into account only records with geocodes'''
