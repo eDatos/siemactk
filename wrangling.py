@@ -43,10 +43,14 @@ def stage_dataset(
     df = _filter_dataset(df, geocodes)
     df = _clean_dataset(df)
 
+    output_files = []
+
     for lang in languages:
         recoded_df = _recode_dataset(df, codelist, lang)
         output_stem = f'{dataset.stem}_{lang.lower()}'
         output_dataset = dataset.with_stem(output_stem)
         recoded_df.to_csv(output_dataset, index=False, sep='\t')
+        output_files.append(output_dataset)
 
     dataset.unlink()
+    return output_files

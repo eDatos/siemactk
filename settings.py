@@ -16,3 +16,6 @@ TARGET_GEOCODES = config(
 )
 CODELIST = config('CODELIST', default='codelist.csv')
 RECODING_LANGUAGES = config('RECODING_LANGUAGES', default='ES,PT', cast=config.list)
+GDRIVE_API_CREDENTIALS = config('GDRIVE_API_CREDENTIALS', default='gdrive-credentials.json')
+GDRIVE_API_SECRETS = config('GDRIVE_API_SECRETS', default='gdrive-secrets.json')
+GDRIVE_UPLOAD_FOLDER_ID = config('GDRIVE_UPLOAD_FOLDER_ID')

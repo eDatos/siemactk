@@ -7,3 +7,5 @@
 sandbox.ipynb
 .env
 codelist.csv
+gdrive-credentials.json
+gdrive-secrets.json
