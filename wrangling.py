@@ -37,7 +37,13 @@ def stage_dataset(
     codelist: Path = Path(settings.CODELIST_FILENAME),
     languages: list = settings.RECODING_LANGUAGES,
 ):
-    '''Filter & clean dataset taking into account only records with geocodes'''
+    """Stage dataset. Steps:
+    1. Read dataset (csv) into a dataframe.
+    2. Filter dataset taking into account only records with geocodes.
+    3. Clean dataset dropping NaN and replace dots with commas.
+    4. Recode dataset for the indicated languages.
+    5. Save dataset as csv (tsv) and json formats.
+    """
 
     df = pd.read_csv(dataset, sep='\t')
     df = _filter_dataset(df, geocodes)
@@ -48,9 +54,14 @@ def stage_dataset(
     for lang in languages:
         recoded_df = _recode_dataset(df, codelist, lang)
         output_stem = f'{dataset.stem}_{lang.lower()}'
-        output_dataset = dataset.with_stem(output_stem)
-        recoded_df.to_csv(output_dataset, index=False, sep='\t')
-        output_files.append(output_dataset)
+
+        output_file = dataset.with_name(output_stem + '.tsv')
+        recoded_df.to_csv(output_file, index=False, sep='\t')
+        output_files.append(output_file)
+
+        output_file = dataset.with_name(output_stem + '.json')
+        recoded_df.to_json(output_file, orient='records')
+        output_files.append(output_file)
 
     dataset.unlink()
     return output_files
