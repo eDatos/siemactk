@@ -2,6 +2,10 @@
 
 Versions follow [Semantic Versioning](https://semver.org/) (`<major>.<minor>.<patch>`).
 
+## siemactk 0.5.0 (2021-03-30)
+
+- Add notification via email.
+
 ## siemactk 0.4.0 (2021-03-29)
 
 - Add feature to generate json output files.
