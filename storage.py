@@ -7,7 +7,7 @@ drive.cd(settings.GDRIVE_UPLOAD_FOLDER_ID)
 
 
 def upload(filepath):
-    drive.put(filepath, overwrite=True)
+    return drive.put(filepath, overwrite=True)
 
 
 def download_codelist(filepath):
