@@ -7,7 +7,6 @@ import settings
 
 # Google Drive
 drive = GDrive()
-drive.cd(settings.GDRIVE_UPLOAD_FOLDER_ID)
 
 # Google Cloud Storage
 gcs = storage.Client()
