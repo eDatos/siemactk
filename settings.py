@@ -1,3 +1,5 @@
+import os
+
 from prettyconf import config
 
 TARGET_URL = config(
@@ -30,3 +32,7 @@ SMTP_SERVER = config('SMTP_SERVER')
 SMTP_PORT = config('SMTP_PORT')
 SMTP_USERNAME = config('SMTP_USERNAME')
 SMTP_PASSWORD = config('SMTP_PASSWORD')
+
+# Google Cloud Storage
+GCS_API_CREDENTIALS = config('GCS_API_CREDENTIALS', default='gcs-credentials.json')
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = GCS_API_CREDENTIALS

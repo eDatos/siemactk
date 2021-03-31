@@ -1,14 +1,24 @@
+from pathlib import Path
+
+from google.cloud import storage
 from yagdrive import GDrive
 
 import settings
 
+# Google Drive
 drive = GDrive()
 drive.cd(settings.GDRIVE_UPLOAD_FOLDER_ID)
 
+# Google Cloud Storage
+gcs = storage.Client()
+bucket = gcs.get_bucket('siemac')
 
-def upload(filepath):
-    return drive.put(filepath, overwrite=True)
+
+def download_codelist(filepath: str):
+    drive.get_by_id(settings.GDRIVE_CODELIST_ID, filepath)
 
 
-def download_codelist(filepath):
-    drive.get_by_id(settings.GDRIVE_CODELIST_ID, output_filename=settings.CODELIST_FILENAME)
+def upload(file: Path):
+    blob = bucket.blob(file.name)
+    blob.upload_from_filename(file)
+    return blob.public_url

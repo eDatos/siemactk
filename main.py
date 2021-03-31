@@ -19,8 +19,7 @@ for dataset_url in scraping.get_datasets_urls(settings.TARGET_URL):
 
     print('Uploading output files...')
     for file in output_files:
-        gdrive_file = storage.upload(file)
-        download_url = gdrive_file['webContentLink']
+        download_url = storage.upload(file)
         filename = file.name
         uploaded_files[dataset.stem].append((filename, download_url))
         print(f"{filename} -> {download_url}")
