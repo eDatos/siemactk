@@ -2,6 +2,11 @@
 
 Versions follow [Semantic Versioning](https://semver.org/) (`<major>.<minor>.<patch>`).
 
+## siemactk 0.6.0 (2021-03-31)
+
+- Add GitHub workflow to automate launching.
+- Bug fixes and other minor improvements.
+
 ## siemactk 0.5.2 (2021-03-31)
 
 - Change backend to Google Cloud Storage.
