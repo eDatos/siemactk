@@ -2,6 +2,10 @@
 
 Versions follow [Semantic Versioning](https://semver.org/) (`<major>.<minor>.<patch>`).
 
+## siemactk 0.5.1 (2021-03-31)
+
+- Load codelist from remote Google Drive as excel file.
+
 ## siemactk 0.5.0 (2021-03-30)
 
 - Add notification via email.
