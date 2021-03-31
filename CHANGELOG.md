@@ -2,6 +2,11 @@
 
 Versions follow [Semantic Versioning](https://semver.org/) (`<major>.<minor>.<patch>`).
 
+## siemactk 0.5.2 (2021-03-31)
+
+- Change backend to Google Cloud Storage.
+- Add authentication documentation.
+
 ## siemactk 0.5.1 (2021-03-31)
 
 - Load codelist from remote Google Drive as excel file.
