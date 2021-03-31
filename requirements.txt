@@ -2,3 +2,4 @@ selenium
 pandas
 prettyconf
 yagdrive
+openpyxl

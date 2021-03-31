@@ -6,6 +6,6 @@
 .ipynb_checkpoints
 sandbox.ipynb
 .env
-codelist.csv
+codelist.xlsx
 gdrive-credentials.json
 gdrive-secrets.json

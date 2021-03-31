@@ -11,5 +11,4 @@ def upload(filepath):
 
 
 def download_codelist(filepath):
-    f, _ = drive.get_by_id(settings.GDRIVE_CODELIST_ID, mimetype='text/csv')
-    f.rename(filepath)
+    drive.get_by_id(settings.GDRIVE_CODELIST_ID, output_filename=settings.CODELIST_FILENAME)

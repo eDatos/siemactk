@@ -1,16 +1,17 @@
 from pathlib import Path
 
 import pandas as pd
+from pandas.core.frame import DataFrame
 
 import settings
 
 
-def _filter_dataset(df, geocodes):
+def _filter_dataset(df: DataFrame, geocodes: list):
     gc_pattern = ',(?:' + '|'.join(geocodes) + ') *$'
     return df[df.iloc[:, 0].str.contains(gc_pattern, regex=True)]
 
 
-def _clean_dataset(df):
+def _clean_dataset(df: DataFrame):
     def clean_values(series):
         series = series.str.replace(r'[ a-zA-Z:]+$', '', regex=True)
         series = series.replace('.', ',')
@@ -26,8 +27,7 @@ def _clean_dataset(df):
     return pd.concat([id_df, df], axis=1, verify_integrity=True)
 
 
-def _recode_dataset(df, codelist: Path, language: str):
-    cl = pd.read_csv(codelist)
+def _recode_dataset(df: DataFrame, cl: DataFrame, language: str):
     mapping = cl.pivot(index='code', columns='cl', values=language).to_dict()
     return df.replace(mapping)
 
@@ -45,6 +45,8 @@ def stage_dataset(
     4. Recode dataset for the indicated languages.
     5. Save dataset as csv (tsv) and json formats.
     """
+    # Load codelist
+    cl = pd.read_excel(codelist, sheet_name=settings.CODELIST_RECODE_SHEET)
 
     df = pd.read_csv(dataset, sep='\t')
     df = _filter_dataset(df, geocodes)
@@ -53,7 +55,7 @@ def stage_dataset(
     output_files = []
 
     for lang in languages:
-        recoded_df = _recode_dataset(df, codelist, lang)
+        recoded_df = _recode_dataset(df, cl, lang)
         output_stem = f'{dataset.stem}_{lang.lower()}'
 
         output_file = dataset.with_name(output_stem + '.tsv')
