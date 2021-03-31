@@ -15,7 +15,7 @@ jobs:
       - uses: BSFishy/pip-action@v1
         with:
           requirements: requirements.txt
-      - name: Create credentials files:
+      - name: Create credentials files
         run: |
           'echo "$GDRIVE_API_CREDENTIALS" > gdrive-credentials.json'
           'echo "$GDRIVE_API_SECRETS" > gdrive-secrets.json'
@@ -35,4 +35,3 @@ jobs:
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
           SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-      
