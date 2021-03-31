@@ -17,9 +17,9 @@ jobs:
           requirements: requirements.txt
       - name: Create credentials files
         run: |
-          'echo "$GDRIVE_API_CREDENTIALS" > gdrive-credentials.json'
-          'echo "$GDRIVE_API_SECRETS" > gdrive-secrets.json'
-          'echo "$GCS_API_CREDENTIALS" > gcs-credentials.json'
+          echo "$GDRIVE_API_CREDENTIALS" > gdrive-credentials.json
+          echo "$GDRIVE_API_SECRETS" > gdrive-secrets.json
+          echo "$GCS_API_CREDENTIALS" > gcs-credentials.json
         shell: bash
         env:
           GDRIVE_API_CREDENTIALS: ${{ secrets.GDRIVE_API_CREDENTIALS }}
