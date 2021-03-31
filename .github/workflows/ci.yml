@@ -1,0 +1,38 @@
+name: Python application
+on:
+  push:
+    branches: [main]
+jobs:
+  eurostat-scraping:
+    name: Scrap EUROSTAT datasets for sie-mac.org
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - uses: BSFishy/pip-action@v1
+        with:
+          requirements: requirements.txt
+      - name: Create credentials files:
+        run: |
+          'echo "$GDRIVE_API_CREDENTIALS" > gdrive-credentials.json'
+          'echo "$GDRIVE_API_SECRETS" > gdrive-secrets.json'
+          'echo "$GCS_API_CREDENTIALS" > gcs-credentials.json'
+        shell: bash
+        env:
+          GDRIVE_API_CREDENTIALS: ${{ secrets.GDRIVE_API_CREDENTIALS }}
+          GDRIVE_API_SECRETS: ${{ secrets.GDRIVE_API_SECRETS }}
+          GCS_API_CREDENTIALS: ${{ secrets.GCS_API_CREDENTIALS }}
+      - run: python main.py
+        env:
+          GDRIVE_CODELIST_ID: ${{ secrets.GDRIVE_CODELIST_ID }}
+          CODELIST_RECODE_SHEET: ${{ secrets.CODELIST_RECODE_SHEET }}
+          NOTIFICATION_FROM_ADDR: ${{ secrets.NOTIFICATION_FROM_ADDR }}
+          NOTIFICATION_TO_ADDRS: ${{ secrets.NOTIFICATION_TO_ADDRS }}
+          SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      
