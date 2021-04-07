@@ -2,6 +2,12 @@
 
 Versions follow [Semantic Versioning](https://semver.org/) (`<major>.<minor>.<patch>`).
 
+## Unreleased
+
+Released XXXX-XX-XX
+
+- Fix CI GitHub workflow.
+
 ## Version 0.6.1
 
 Released 2021-04-07
