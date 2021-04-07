@@ -2,6 +2,10 @@
 
 Versions follow [Semantic Versioning](https://semver.org/) (`<major>.<minor>.<patch>`).
 
+## Unreleased
+
+- Improve README.
+
 ## siemactk 0.6.0 (2021-03-31)
 
 - Add GitHub workflow to automate launching.

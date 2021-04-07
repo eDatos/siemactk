@@ -1,8 +1,19 @@
-# siemactk
+![siemactk logo](siemactk-logo.png)
 
-<img width="400" alt="SIE-MAC Logo" src="https://sie-mac.org/wp-content/uploads/2020/02/sector1.png">
+**Toolkit to support operations on [sie-mac.org](https://sie-mac.org)**
 
-Toolkit to support operations on [sie-mac.org](https://sie-mac.org)
+# Workflow
+
+![siemactk-workflow](img/siemactk-workflow.png)
+
+1. Scrap some datasets from https://ec.europa.eu/eurostat.
+2. Get codelist from Google Spreadsheets.
+3. Filter, clean & recode datasets.
+4. Generate translated output files in both `.json` and `.tsv` formats.
+5. Upload output files to a bucket in Google Cloud Storage (GCS).
+6. Notify via email the result of the automation process.
+
+Thus, site sie-mac.org can report tables with [wpDataTables](https://wpdatatables.com/) plugin, sourcing from data on GCS.
 
 # Auth
 
@@ -39,6 +50,27 @@ At the end of the authentication process, one file must be saved in the present 
 
 - `gcs-credentials.json`
 
+# Setup
+
+1. Install dependencies:
+
+   ```console
+   $ pip install -r requirements.txt
+   ```
+
+2. Generate [credentials for authentication](#Auth).
+3. Create a `.env` file containing parameters with no default values on [settings.py](settings.py).
+
+# Usage
+
+```console
+$ python main.py
+```
+
+## GitHub Workflow
+
+In order to automate the launching of this scraping, a GitHub workflow has been developed and scheduled every month.
+
 # Changelog
 
-Consult the [Changelog](CHANGELOG.md) page for fixes and enhancements of each version.
+Consult the [Changelog](CHANGELOG.md) page for bugfixes and features in each version.
