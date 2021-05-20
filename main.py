@@ -1,9 +1,10 @@
+from collections import defaultdict
+
+import notification
 import scraping
 import settings
 import storage
 import wrangling
-import notification
-from collections import defaultdict
 
 print('Downloading codelist...')
 storage.download_codelist(settings.CODELIST_FILENAME)
