@@ -18,15 +18,14 @@ for dataset_url in datasets_urls:
     dataset = scraping.download_dataset(dataset_url)
 
     print(f'Staging {dataset}...')
-    output_files = wrangling.stage_dataset(dataset, codelists)
-
-    print('Uploading output files...')
-    for file in output_files:
-        download_url = storage.upload(file)
-        filename = file.name
-        uploaded_files[dataset.stem].append((filename, download_url))
-        print(f"{filename} -> {download_url}")
-    print()
+    if output_files := wrangling.stage_dataset(dataset, codelists):
+        print('Uploading output files...')
+        for file in output_files:
+            download_url = storage.upload(file)
+            filename = file.name
+            uploaded_files[dataset.stem].append((filename, download_url))
+            print(f"{filename} -> {download_url}")
+        print()
 
 print('Notifying results...')
 notification.notify(uploaded_files)
