@@ -6,6 +6,16 @@ from pandas.core.frame import DataFrame
 import settings
 
 
+def codelists_to_dict(codelists: DataFrame, languages=settings.RECODING_LANGUAGES):
+    mapping = {}
+    for lang in languages:
+        mapping[lang] = {}
+        for _, group in codelists.groupby('cl'):
+            d = group.pivot(index='code', columns='cl', values=lang).to_dict()
+            mapping[lang].update(d)
+    return mapping
+
+
 def _filter_dataset(df: DataFrame, geocodes: list):
     gc_pattern = ',(?:' + '|'.join(geocodes) + ') *$'
     return df[df.iloc[:, 0].str.contains(gc_pattern, regex=True)]
@@ -27,15 +37,14 @@ def _clean_dataset(df: DataFrame):
     return pd.concat([id_df, df], axis=1, verify_integrity=True)
 
 
-def _recode_dataset(df: DataFrame, cl: DataFrame, language: str):
-    mapping = cl.pivot(index='code', columns='cl', values=language).to_dict()
+def _recode_dataset(df: DataFrame, mapping: dict):
     return df.replace(mapping)
 
 
 def stage_dataset(
     dataset: Path,
+    codelists: dict,
     geocodes: list = settings.TARGET_GEOCODES,
-    codelist: Path = Path(settings.CODELIST_FILENAME),
     languages: list = settings.RECODING_LANGUAGES,
 ):
     """Stage dataset. Steps:
@@ -45,8 +54,6 @@ def stage_dataset(
     4. Recode dataset for the indicated languages.
     5. Save dataset as csv (tsv) and json formats.
     """
-    # Load codelist
-    cl = pd.read_excel(codelist, sheet_name=settings.CODELIST_RECODE_SHEET)
 
     df = pd.read_csv(dataset, sep='\t')
     df = _filter_dataset(df, geocodes)
@@ -55,7 +62,7 @@ def stage_dataset(
     output_files = []
 
     for lang in languages:
-        recoded_df = _recode_dataset(df, cl, lang)
+        recoded_df = _recode_dataset(df, codelists[lang])
         output_stem = f'{dataset.stem}_{lang.lower()}'
 
         output_file = dataset.with_name(output_stem + '.tsv')
