@@ -2,9 +2,19 @@ import os
 
 from prettyconf import config
 
+
+def geocodes_cast(value):
+    return [v.split('|') for v in value.split(',')]
+
+
 DATASETS_DIR = config('DATASETS_DIR', default='data')
+# Geocodes will be casted as a list of tuples.
+# Datasets will be filtered out by each geocode within its group. For example, if you
+# write 'ES7|ES70,PT2|PT20' it means 2 groups with 2 geocodes in each group.
+# Selected rows comes from the maximum filtered rows between ES7 and ES70. The same
+# occurs with PT2 and PT20, and so on.
 TARGET_GEOCODES = config(
-    'TARGET_GEOCODES', default='ES70,PT20,PT30,EU27_2020', cast=config.list
+    'TARGET_GEOCODES', default='ES7|ES70,PT2|PT20,PT3|PT30,EU27_2020', cast=geocodes_cast
 )
 RECODING_LANGUAGES = config('RECODING_LANGUAGES', default='ES,PT', cast=config.list)
 

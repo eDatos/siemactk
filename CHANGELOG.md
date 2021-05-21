@@ -9,6 +9,7 @@ Released XXXX-XX-XX
 - Fix CI GitHub workflow.
 - Include new indicators.
 - Direct scraping from datasets urls on dataref.
+- Filter datasets with aumented NUTs.
 
 ## Version 0.6.1
 

@@ -1,12 +1,11 @@
 from pathlib import Path
 
 import pandas as pd
-from pandas.core.frame import DataFrame
 
 import settings
 
 
-def codelists_to_dict(codelists: DataFrame, languages=settings.RECODING_LANGUAGES):
+def codelists_to_dict(codelists: pd.DataFrame, languages=settings.RECODING_LANGUAGES):
     mapping = {}
     for lang in languages:
         mapping[lang] = {}
@@ -16,12 +15,19 @@ def codelists_to_dict(codelists: DataFrame, languages=settings.RECODING_LANGUAGE
     return mapping
 
 
-def _filter_dataset(df: DataFrame, geocodes: list):
-    gc_pattern = ',(?:' + '|'.join(geocodes) + ') *$'
-    return df[df.iloc[:, 0].str.contains(gc_pattern, regex=True)]
+def _filter_dataset(df: pd.DataFrame, geocodes: list[tuple]):
+    filtered_df = pd.DataFrame()
+    for geocodes_group in geocodes:
+        aux = {}
+        for geocode in geocodes_group:
+            filtered_rows = df.iloc[:, 0].str.contains(fr'{geocode}\s*$', regex=True)
+            aux[sum(filtered_rows)] = df[filtered_rows]
+        filtered_rows = aux[max(aux)]
+        filtered_df = filtered_df.append(filtered_rows, ignore_index=True)
+    return filtered_df
 
 
-def _clean_dataset(df: DataFrame):
+def _clean_dataset(df: pd.DataFrame):
     def clean_values(series):
         series = series.str.replace(r'[ a-zA-Z:]+$', '', regex=True)
         series = series.replace('.', ',')
@@ -37,14 +43,14 @@ def _clean_dataset(df: DataFrame):
     return pd.concat([id_df, df], axis=1, verify_integrity=True)
 
 
-def _recode_dataset(df: DataFrame, mapping: dict):
+def _recode_dataset(df: pd.DataFrame, mapping: dict):
     return df.replace(mapping)
 
 
 def stage_dataset(
     dataset: Path,
     codelists: dict,
-    geocodes: list = settings.TARGET_GEOCODES,
+    geocodes: list[tuple] = settings.TARGET_GEOCODES,
     languages: list = settings.RECODING_LANGUAGES,
 ):
     """Stage dataset. Steps:
