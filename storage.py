@@ -23,7 +23,7 @@ def download_dataref(
 ):
     drive.get_by_id(file_id, filepath)
     fh = Path(filepath)
-    codelists = pd.read_excel(fh, sheet_name=codelists_sheet)
+    codelists = pd.read_excel(fh, sheet_name=codelists_sheet, dtype=str)
     inventory = pd.read_excel(fh, sheet_name=inventory_sheet)
     return codelists, inventory[inventory_dataset_urls_column_name]
 
