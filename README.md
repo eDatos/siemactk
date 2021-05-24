@@ -6,8 +6,8 @@
 
 ![siemactk-workflow](img/siemactk-workflow.png)
 
-1. Scrap some datasets from https://ec.europa.eu/eurostat.
-2. Get codelist from Google Spreadsheets.
+1. Get datasets urls and codelists from Google Spreadsheets.
+2. Scrap these datasets from https://ec.europa.eu/eurostat.
 3. Filter, clean & recode datasets.
 4. Generate translated output files in both `.json` and `.tsv` formats.
 5. Upload output files to a bucket in Google Cloud Storage (GCS).
