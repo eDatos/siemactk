@@ -6,6 +6,10 @@ Versions follow [Semantic Versioning](https://semver.org/) (`<major>.<minor>.<pa
 
 Released XXXX-XX-XX
 
+## Version 0.7.0
+
+Released 2021-05-24
+
 - Fix CI GitHub workflow.
 - Include new indicators.
 - Direct scraping from datasets urls on dataref.
