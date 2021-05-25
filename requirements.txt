@@ -3,3 +3,4 @@ prettyconf
 yagdrive
 openpyxl
 google-cloud-storage
+logzero

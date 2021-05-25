@@ -6,6 +6,8 @@ Versions follow [Semantic Versioning](https://semver.org/) (`<major>.<minor>.<pa
 
 Released XXXX-XX-XX
 
+- Add logging (stdout and file).
+
 ## Version 0.7.0
 
 Released 2021-05-24

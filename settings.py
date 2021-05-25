@@ -39,3 +39,8 @@ SMTP_PASSWORD = config('SMTP_PASSWORD')
 # Google Cloud Storage
 GCS_API_CREDENTIALS = config('GCS_API_CREDENTIALS', default='gcs-credentials.json')
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = GCS_API_CREDENTIALS
+
+# Logging
+LOGFILE = config('LOGFILE', default='siemactk.log')
+LOGFILE_SIZE = config('LOGFILE_SIZE', cast=float, default=1e6)
+LOGFILE_BACKUP_COUNT = config('LOGFILE_BACKUP_COUNT', cast=int, default=3)

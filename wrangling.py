@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pandas as pd
+from logzero import logger
 
 import settings
 
@@ -64,7 +65,7 @@ def stage_dataset(
     df = pd.read_csv(dataset, sep='\t')
     df = _filter_dataset(df, geocodes)
     if df.size == 0:
-        print('Dataset has no records with supplied geocodes. Discarding...')
+        logger.error('Dataset has no records with supplied geocodes. Discarding...')
         return False
     df = _clean_dataset(df)
 
