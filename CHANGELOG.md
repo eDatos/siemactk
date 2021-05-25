@@ -6,6 +6,10 @@ Versions follow [Semantic Versioning](https://semver.org/) (`<major>.<minor>.<pa
 
 Released XXXX-XX-XX
 
+## Version 0.7.1
+
+Released 2021-05-25
+
 - Add logging (stdout and file).
 - Restructure files encapsulating main `.py` files.
 
