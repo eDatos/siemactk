@@ -3,11 +3,8 @@ from collections import defaultdict
 
 import logzero
 
-import notification
-import scraping
 import settings
-import storage
-import wrangling
+from siemactk import notification, scraping, storage, wrangling
 
 
 def init_logger():
