@@ -1,10 +1,10 @@
 from pathlib import Path
 
 import pandas as pd
-from google.cloud import storage
-from yagdrive import GDrive
-
 import settings
+from google.cloud import storage
+from logzero import logger
+from yagdrive import GDrive
 
 # Google Drive
 drive = GDrive()
@@ -25,6 +25,8 @@ def download_dataref(
     fh = Path(filepath)
     codelists = pd.read_excel(fh, sheet_name=codelists_sheet, dtype=str)
     inventory = pd.read_excel(fh, sheet_name=inventory_sheet)
+    logger.debug(f'Removing {filepath} file...')
+    fh.unlink()  # dataref is needed no more
     return codelists, inventory[inventory_dataset_urls_column_name]
 
 
