@@ -1,4 +1,4 @@
-![siemactk logo](siemactk-logo.png)
+![siemactk logo](img/siemactk-logo.png)
 
 **Toolkit to support operations on [sie-mac.org](https://sie-mac.org)**
 
