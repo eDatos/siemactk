@@ -27,8 +27,7 @@ jobs:
           GCS_API_CREDENTIALS: ${{ secrets.GCS_API_CREDENTIALS }}
       - run: python main.py
         env:
-          GDRIVE_CODELIST_ID: ${{ secrets.GDRIVE_CODELIST_ID }}
-          CODELIST_RECODE_SHEET: ${{ secrets.CODELIST_RECODE_SHEET }}
+          GDRIVE_DATAREF_ID: ${{ secrets.GDRIVE_DATAREF_ID }}
           NOTIFICATION_FROM_ADDR: ${{ secrets.NOTIFICATION_FROM_ADDR }}
           NOTIFICATION_TO_ADDRS: ${{ secrets.NOTIFICATION_TO_ADDRS }}
           SMTP_SERVER: ${{ secrets.SMTP_SERVER }}

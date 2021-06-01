@@ -6,6 +6,8 @@ Versions follow [Semantic Versioning](https://semver.org/) (`<major>.<minor>.<pa
 
 Released XXXX-XX-XX
 
+- Fix settings for data reference on production.
+
 ## Version 0.7.1
 
 Released 2021-05-25
