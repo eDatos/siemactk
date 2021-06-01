@@ -7,6 +7,7 @@ Versions follow [Semantic Versioning](https://semver.org/) (`<major>.<minor>.<pa
 Released XXXX-XX-XX
 
 - Fix settings for data reference on production.
+- Enable manual launching of CI GitHub action.
 
 ## Version 0.7.1
 
