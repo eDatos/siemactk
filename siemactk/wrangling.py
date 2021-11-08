@@ -34,6 +34,7 @@ def _clean_dataset(df: pd.DataFrame):
         series = series.replace('.', ',')
         return series
 
+    df = df.astype(str)
     df = df.apply(lambda series: series.str.strip())
     df.columns = [c.strip() for c in df.columns]
     id_columns = [c.replace('\\time', '') for c in df.columns[0].split(',')]
